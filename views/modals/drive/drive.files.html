@@ -1,0 +1,25 @@
+<div class="folders-pane" ng-controller="DriveFilesCtrl">
+
+    <h3 ng-show="drive.files.length == 0" class="text-center">You don't have files in your drive</h3>
+
+    <table class="table" ng-show="drive.files.length > 0">
+        <tr>
+            <th></th>
+            <th>Type</th>
+            <th>Url</th>
+            <th>Created date</th>
+        </tr>
+
+        <tr ng-repeat="file in drive.files | orderBy:'-created_at' | filter:query" ng-click="toggleSelection(file)" style="cursor:pointer">
+            <td>
+                <span ng-show="isFileSelected(file)" class="fa fa-check-circle text-success"></span>
+                <span ng-hide="isFileSelected(file)" class="fa fa-circle-o"></span>
+            </td>
+            <td>{{ file.type }}</td>
+            <td><a ng-href="{{file.url}}" target="_blank">{{ file.url }}</a>
+            </td>
+            <td>{{ file.created_at }}</td>
+        </tr>
+        
+    </table>
+</div>

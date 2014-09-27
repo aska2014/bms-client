@@ -1,0 +1,66 @@
+<div ng-controller="DriveUploadCtrl" class="upload-pane">
+
+  <!-- First tab (Choose upload method) -->
+  <div class="text-center" ng-show="Tab.isUploaderView()">
+
+    <div class="drop-image" ng-show="Uploader.hasDropMethod()">
+        <i class="fa fa-upload"></i><br />
+        Drop file here to upload
+    </div>
+
+    <div class="from-computer" ng-show="Uploader.hasComputerMethod()" >
+      <button type="button" class="btn btn-default" ng-click="openFileDialog()">
+        <span class="fa fa-laptop"></span>
+        Upload file from your computer
+      </button>
+      <input type="file" id="hiddenFileUploader" style="display:none" />
+    </div>
+
+  </div>
+  <!-- End first tab -->
+
+
+
+
+
+
+  <!-- Second tab (image is uploading) -->
+  <div ng-show="Tab.isUploadingView()">
+    <h4 class="text-info">Uploading Please wait ...</h4>
+    <hr/>
+    <div class="progress" style="text-align:center;">
+      <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{ Uploader.getProgress() }}" aria-valuemin="0" aria-valuemax="100" 
+      ng-style="Uploader.getProgressStyle()">
+        {{ Uploader.getProgress() }}%
+      </div>
+    </div>
+  </div>
+  <!-- End second tab -->
+
+
+
+  <!-- Third tab (Show status) -->
+  <div ng-show="Tab.isErrorStatus()">
+
+    <h3 class="text-danger text-center">
+      <i class="fa fa-times-circle"></i> Something went wrong. 
+      <button class="btn btn-danger" ng-click="Tab.showUploaderView()">Try again</button>
+    </h3>
+
+  </div>
+
+  <div ng-show="Tab.isSuccessStatus()">
+
+    <h3 class="text-success text-center">
+      <i class="fa fa-check-circle"></i> File uploaded to your drive successfully.
+    </h3>
+    <Br />
+    <div class="text-center">
+      <button class="btn btn-success" ng-click="selectAndFinish(lastUploadedFile)">Use file</button>
+      <button class="btn btn-primary" ng-click="Tab.showUploaderView()">Upload again</button>
+      <button class="btn btn-default" ng-click="changeMainTab('drive')">Go to your drive</button>
+    </div> 
+  </div>
+  <!-- End third tab -->
+
+</div>
